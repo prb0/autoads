@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+<div class="row mt-3">
+	<div class="col-12">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col">№</th>
+					<th scope="col">Описание</th>
+					<th scope="col">Цена</th>
+					<th scope="col">Производитель</th>
+					<th scope="col">Год выпуска</th>
+					<th scope="col">Страна производитель</th>
+					<th scope="col">Ссылка</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ad in ads %}
+				<tr>
+					<th scope="row">{{ ad.id }}</th>
+					<td>{{ ad.description }}</td>
+					<td>{{ ad.price }}</td>
+					<td>{{ ad.auto.manufacturer }}</td>
+					<td>{{ ad.auto.releaseyear }}</td>
+					<td>{{ ad.auto.origincountry }}</td>
+					<td><a href="/ads/{{ ad.id }}" class="btn btn-success">Подробнее</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+# index:
+#   path: /
+#   controller: App\Controller\MainController::index
+
+ads:
+  path: /ads
+  controller: App\Controller\AdsController::index
+
+ad:
+  path: /ads/{id}
+  controller: App\Controller\AdsController::showAction

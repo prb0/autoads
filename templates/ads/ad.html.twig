@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+<div class="row mt-3">
+	<div class="col-12">
+		<div class="row">
+			<div class="col-3">
+				<div>№ </div>
+				<div>Описание </div>
+				<div>Цена </div>
+				<div>Производитель </div>
+				<div>Год выпуска </div>
+				<div>Страна производитель </div>
+			</div>
+			<div class="col-9">
+				<div>{{ ad.id }}</div>
+				<div>{{ ad.description }}</div>
+				<div>{{ ad.price }}</div>
+				<div>{{ ad.auto.manufacturer }}</div>
+				<div>{{ ad.auto.releaseyear }}</div>
+				<div>{{ ad.auto.origincountry }}</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
