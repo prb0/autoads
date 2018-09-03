@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+<div class="row mt-3">
+	<div class="col-12 mt-5">
+		<h4>Редактировать авто</h4>
+		{{ form_start(formAuto) }}
+		{{ form_widget(formAuto) }}
+		{{ form_end(formAuto) }}
+	</div>	
+</div>
+{% endblock %}

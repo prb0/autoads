@@ -1,6 +1,30 @@
-# index:
-#   path: /
-#   controller: App\Controller\MainController::index
+main:
+  path: /
+  controller: App\Controller\MainController::index
+
+auto_new:
+  path: /autos/new
+  controller: App\Controller\AutosController::new
+
+auto_update:
+  path: /autos/update/{id}
+  controller: App\Controller\AutosController::updateAction
+
+ad_update:
+  path: /ads/update/{id}
+  controller: App\Controller\AdsController::updateAction
+
+auto_remove:
+  path: /autos/remove/{id}
+  controller: App\Controller\AutosController::removeAction
+
+ad_remove:
+  path: /ads/remove/{id}
+  controller: App\Controller\AdsController::removeAction
+
+ad_new:
+  path: /ads/new
+  controller: App\Controller\AdsController::new
 
 ads:
   path: /ads
@@ -9,3 +33,12 @@ ads:
 ad:
   path: /ads/{id}
   controller: App\Controller\AdsController::showAction
+
+autos:
+  path: /autos/{filterBy}/{value}
+  controller: App\Controller\AutosController::index
+  defaults: { filterBy: false, value: false }
+
+auto:
+  path: /autos/{id}
+  controller: App\Controller\AutosController::showAction

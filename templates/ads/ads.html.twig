@@ -3,6 +3,9 @@
 {% block main %}
 <div class="row mt-3">
 	<div class="col-12">
+		{% if response is defined and response|length > 0 %}
+			<h3>{{ response }}</h3>
+		{% endif %}
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -13,6 +16,8 @@
 					<th scope="col">Год выпуска</th>
 					<th scope="col">Страна производитель</th>
 					<th scope="col">Ссылка</th>
+					<th scope="col">Изменить</th>
+					<th scope="col">Удалить</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -25,6 +30,8 @@
 					<td>{{ ad.auto.releaseyear }}</td>
 					<td>{{ ad.auto.origincountry }}</td>
 					<td><a href="/ads/{{ ad.id }}" class="btn btn-success">Подробнее</a></td>
+					<td><a href="/ads/update/{{ ad.id }}" class="btn btn-success">Изменить</a></td>
+					<td><a href="/ads/remove/{{ ad.id }}" class="btn btn-warning">Удалить</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

@@ -36,6 +36,11 @@ class Auto
         return $this->id;
     }
 
+    public function getAuto(): ?string
+    {
+        return $this->manufacturer;
+    }
+
     public function getManufacturer(): ?string
     {
         return $this->manufacturer;

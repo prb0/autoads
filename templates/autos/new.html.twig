@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+<div class="row mt-3">
+	<div class="col-12 mt-5">
+		{% if response is defined and response|length > 0 %}
+			<h3>{{ response }}</h3>
+		{% endif %}
+		<h4>Добавить автомобиль</h4>
+		{{ form_start(formAuto) }}
+		{{ form_widget(formAuto) }}
+		{{ form_end(formAuto) }}
+	</div>	
+</div>
+{% endblock %}

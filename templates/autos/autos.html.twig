@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block main %}
+<div class="row mt-3">
+	<div class="col-12">
+		{% for fieldGroupName,fieldGroup in filterFields %}
+			<div>
+				<h5>{{ fieldGroupName }}</h5>
+				{% for field in fieldGroup %}
+					{% for fieldName in field %}
+						<a href="/autos/{{ fieldGroupName }}/{{ fieldName }}">{{ fieldName }}</a>
+					{% endfor %}
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<div class="row mt-3">
+	<div class="col-12">
+		{% if response is defined and response|length > 0 %}
+			<h3>{{ response }}</h3>
+		{% endif %}
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col">№</th>
+					<th scope="col">Производитель</th>
+					<th scope="col">Год выпуска</th>
+					<th scope="col">Страна производитель</th>
+					<th scope="col">Подробно</th>
+					<th scope="col">Изменить</th>
+					<th scope="col">Удалить</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for auto in autos %}
+				<tr>
+					<th scope="row">{{ auto.id }}</th>
+					<td>{{ auto.manufacturer }}</td>
+					<td>{{ auto.releaseyear }}</td>
+					<td>{{ auto.origincountry }}</td>
+					<td><a href="/autos/{{ auto.id }}" class="btn btn-success">Подробнее</a></td>
+					<td><a href="/autos/update/{{ auto.id }}" class="btn btn-success">Изменить</a></td>
+					<td><a href="/autos/remove/{{ auto.id }}" class="btn btn-warning">Удалить</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
