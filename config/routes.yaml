@@ -34,11 +34,11 @@ ad:
   path: /ads/{id}
   controller: App\Controller\AdsController::showAction
 
+auto:
+  path: /autos/{id}
+  controller: App\Controller\AutosController::showAction
+
 autos:
   path: /autos/{filterBy}/{value}
   controller: App\Controller\AutosController::index
   defaults: { filterBy: false, value: false }
-
-auto:
-  path: /autos/{id}
-  controller: App\Controller\AutosController::showAction
