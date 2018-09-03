@@ -28,10 +28,8 @@ class AutosController extends AbstractController
             $autos = $autoRepository->findAll();    
         }
         
-        $filterFields = [];
-        $filterFields['manufacturer'] = $autoRepository->getFieldValues('a.manufacturer');
-        $filterFields['origin_country'] = $autoRepository->getFieldValues('a.origin_country');
-        $filterFields['release_year'] = $autoRepository->getFieldValues('a.release_year');
+        $filterFields = $this->getFilterFields();
+        
 
         return $this->render('autos/autos.html.twig', [
             'autos' => $autos,
@@ -52,14 +50,7 @@ class AutosController extends AbstractController
 
     public function new(Request $request)
     {
-        $auto = new Auto();
-
-        $formAuto = $this->createFormBuilder($auto)
-            ->add('manufacturer', TextType::class)
-            ->add('origin_country', TextType::class)
-            ->add('release_year', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
-            ->getForm();
+        $formAuto = $this->createFormAuto();
 
         $formAuto->handleRequest($request);
 
@@ -92,12 +83,7 @@ class AutosController extends AbstractController
 	        );
 	    }
 
-        $formAuto = $this->createFormBuilder($auto)
-            ->add('manufacturer', TextType::class)
-            ->add('origin_country', TextType::class)
-            ->add('release_year', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
-            ->getForm();
+        $formAuto = $this->createFormAuto();
 
         $formAuto->handleRequest($request);
 
@@ -151,15 +137,34 @@ class AutosController extends AbstractController
         $autoRepository = $em->getRepository(Auto::class);
         $autos = $autoRepository->findAll();    
 
-        $filterFields = [];
-        $filterFields['manufacturer'] = $autoRepository->getFieldValues('a.manufacturer');
-        $filterFields['origin_country'] = $autoRepository->getFieldValues('a.origin_country');
-        $filterFields['release_year'] = $autoRepository->getFieldValues('a.release_year');
+        $filterFields = $this->getFilterFields();
 
         return $this->render('autos/autos.html.twig', [
             'autos' => $autos,
             'response' => $message,
             'filterFields' => $filterFields
         ]);
+    }
+
+    private function createFormAuto()
+    {
+        $auto = new Auto();
+        return $this->createFormBuilder($auto)
+            ->add('manufacturer', TextType::class)
+            ->add('origin_country', TextType::class)
+            ->add('release_year', IntegerType::class)
+            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
+            ->getForm();
+    }
+
+    private function getFilterFields()
+    {
+        $autoRepository = $this->getDoctrine()->getManager()->getRepository(Auto::class);
+        $filterFields = [];
+        $filterFields['manufacturer'] = $autoRepository->getFieldValues('a.manufacturer');
+        $filterFields['origin_country'] = $autoRepository->getFieldValues('a.origin_country');
+        $filterFields['release_year'] = $autoRepository->getFieldValues('a.release_year');
+
+        return $filterFields;
     }
 }

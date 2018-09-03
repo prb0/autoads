@@ -38,23 +38,7 @@ class AdsController extends AbstractController
 
     public function new(Request $request)
     {
-        $ad = new Ad();
-
-        $formAd = $this->createFormBuilder($ad)
-    		->setAction($this->generateUrl('ad_new'))
-            ->add('description', TextType::class)
-            ->add('auto', EntityType::class, [
-            	'class' => Auto::class,
-			    'query_builder' => function (\App\Repository\AutoRepository $er) {
-			        return $er->createQueryBuilder('a');
-			    },
-			    'choice_label' => 'auto',
-            ])
-            ->add('date_begin', DateType::class)
-            ->add('date_end', DateType::class)
-            ->add('price', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
-            ->getForm();
+        $formAd = $this->createFormAd();
 
         $formAd->handleRequest($request);
 
@@ -94,20 +78,7 @@ class AdsController extends AbstractController
 	        );
 	    }
 
-        $formAd = $this->createFormBuilder($ad)
-            ->add('description', TextType::class)
-            ->add('auto', EntityType::class, [
-            	'class' => Auto::class,
-			    'query_builder' => function (\App\Repository\AutoRepository $er) {
-			        return $er->createQueryBuilder('a');
-			    },
-			    'choice_label' => 'auto',
-            ])
-            ->add('date_begin', DateType::class)
-            ->add('date_end', DateType::class)
-            ->add('price', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
-            ->getForm();
+        $formAd = $this->createFormAd();
 
         $formAd->handleRequest($request);
 
@@ -156,5 +127,26 @@ class AdsController extends AbstractController
             'ads' => $ads,
             'response' => $message
         ));
+    }
+
+    private function createFormAd()
+    {
+        $ad = new Ad();
+
+        return $this->createFormBuilder($ad)
+            ->setAction($this->generateUrl('ad_new'))
+            ->add('description', TextType::class)
+            ->add('auto', EntityType::class, [
+                'class' => Auto::class,
+                'query_builder' => function (\App\Repository\AutoRepository $er) {
+                    return $er->createQueryBuilder('a');
+                },
+                'choice_label' => 'auto',
+            ])
+            ->add('date_begin', DateType::class)
+            ->add('date_end', DateType::class)
+            ->add('price', IntegerType::class)
+            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
+            ->getForm();
     }
 }
