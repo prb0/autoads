@@ -125,7 +125,7 @@ class AdsController extends AbstractController
 		            'id' => $ad->getId(),
 		        ));
 		    } else {
-		    	throw new RuntimeException("Неизвестный класс редактируемого объекта");
+		    	throw new Exception("Неизвестный класс редактируемого объекта");
 		    }
 	    }
 
