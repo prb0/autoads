@@ -38,7 +38,8 @@ class AdsController extends AbstractController
 
     public function new(Request $request)
     {
-        $formAd = $this->createFormAd();
+        $ad = new Ad();
+        $formAd = $this->createFormAd($ad, 'Создать');
 
         $formAd->handleRequest($request);
 
@@ -78,7 +79,7 @@ class AdsController extends AbstractController
 	        );
 	    }
 
-        $formAd = $this->createFormAd();
+        $formAd = $this->createFormAd($ad, 'Изменить');
 
         $formAd->handleRequest($request);
 
@@ -129,12 +130,9 @@ class AdsController extends AbstractController
         ));
     }
 
-    private function createFormAd()
+    private function createFormAd(Ad $ad, $submitText)
     {
-        $ad = new Ad();
-
         return $this->createFormBuilder($ad)
-            ->setAction($this->generateUrl('ad_new'))
             ->add('description', TextType::class)
             ->add('auto', EntityType::class, [
                 'class' => Auto::class,
@@ -146,7 +144,7 @@ class AdsController extends AbstractController
             ->add('date_begin', DateType::class)
             ->add('date_end', DateType::class)
             ->add('price', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
+            ->add('save', SubmitType::class, array('label' => $submitText))
             ->getForm();
     }
 }

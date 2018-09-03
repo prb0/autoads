@@ -50,8 +50,8 @@ class AutosController extends AbstractController
 
     public function new(Request $request)
     {
-        $formAuto = $this->createFormAuto();
-
+        $auto = new Auto();
+        $formAuto = $this->createFormAuto($auto, 'Создать');
         $formAuto->handleRequest($request);
 
         if ($formAuto->isSubmitted() && $formAuto->isValid()) {
@@ -83,7 +83,7 @@ class AutosController extends AbstractController
 	        );
 	    }
 
-        $formAuto = $this->createFormAuto();
+        $formAuto = $this->createFormAuto($auto, 'Изменить');
 
         $formAuto->handleRequest($request);
 
@@ -146,14 +146,13 @@ class AutosController extends AbstractController
         ]);
     }
 
-    private function createFormAuto()
+    private function createFormAuto(Auto $auto, $submitText)
     {
-        $auto = new Auto();
         return $this->createFormBuilder($auto)
             ->add('manufacturer', TextType::class)
             ->add('origin_country', TextType::class)
             ->add('release_year', IntegerType::class)
-            ->add('save', SubmitType::class, array('label' => 'Добавить в список'))
+            ->add('save', SubmitType::class, array('label' => $submitText))
             ->getForm();
     }
 
